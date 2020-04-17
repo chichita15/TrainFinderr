@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<!--  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
+</head>
+<body> 
+
+
+
+<div class="container">
+  <div>
+    <mat-card style="text-align: center;color: mediumvioletred;text-shadow: 2px 2px 5px mediumorchid;letter-spacing: 5px;">
+      <mat-card-title>
+       TrainFinder!
+      </mat-card-title>
+      <mat-card-content>
+        <div class="form-container">
+          <div>
+          <mat-form-field>
+            <input matInput placeholder="De" [matAutocomplete]="auto1" #inputD (change)="getPlaces(inputD.value)" style="background-color: rgb(243, 215, 243);border: mediumvioletred 2px solid ;border-radius: 5px;">
+            <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="departingSelected($event.option.value)" [displayWith]="displayFn" id="FromInput">
+              <mat-option *ngFor="let place of places" [value]="place">
+                <span>{{ place.name }}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          </div>
+          <div>
+          <mat-form-field>
+
+            <input matInput placeholder="A" [matAutocomplete]="auto2" #inputA (change)="getPlaces(inputA.value)" style="background-color: rgb(243, 215, 243);border: mediumvioletred 2px solid ;border-radius: 5px;">
+            <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="arrivingSelected($event.option.value)" [displayWith]="displayFn" id="ToInput">
+              <mat-option *ngFor="let place of places" [value]="place">
+                <span>{{ place.name }}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          </div>
+          <div>
+          <mat-form-field>
+            <mat-label>Date </mat-label> 
+            <input matInput [matDatepicker]="picker" (dateChange)="setDateTime($event.value)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+          </div>
+
+
+          <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="getJourneys()" >Chercher </button>
+      </mat-card-actions>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+
+</div>
+<ul>
+  <li><div id="calcule"> </div></li>
+  <li><div id="prix"></div></li>
+  <li *ngFor="let journey of journeys">
+    {{nameD}}
+    <br />
+    <span>Date de depart</span>
+    <span>:</span>
+    {{ journey.departureDateTime }}
+    <br />
+    {{commercialMode}}
+    <br/>
+    {{nameA}}
+    <br />
+    <span>Date d'arrivée</span>
+    <span>:</span>
+    {{ journey.arrivalDateTime }}
+
+
+
+  </li>
+</ul>
+
+
+
+
+</body>
+</html>
